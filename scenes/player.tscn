@@ -22,5 +22,6 @@ material = SubResource("CanvasItemMaterial_sweqy")
 texture = ExtResource("2_i3pqv")
 
 [node name="ClapAttack" parent="." instance=ExtResource("3_qhqgy")]
+scale = Vector2(1.2, 1.2)
 
 [connection signal="hit" from="ClapAttack" to="." method="_on_clap_attack_hit"]

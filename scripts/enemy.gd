@@ -39,10 +39,15 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if "HEALTH" in body and body.has_method("die"):
+	if "HEALTH" in body and body.has_method("die_to"):
 		while body in $Hurtbox.get_overlapping_bodies():
 			body.HEALTH -= 1
-			if body.HEALTH <= 0:
-				body.die(self)
+			var killed = body.HEALTH <= 0
+			
+			DamageNumbers.display_number(1, body.position)
+			
+			if killed:
+				body.die_to(self)
+			
 			$AttackTimer.start()
 			await $AttackTimer.timeout

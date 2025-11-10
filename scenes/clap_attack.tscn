@@ -22,7 +22,6 @@ z_index = -1
 script = ExtResource("1_3v0jj")
 
 [node name="Timer" type="Timer" parent="."]
-autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

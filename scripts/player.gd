@@ -8,8 +8,8 @@ signal died
 @export var MOVE_RIGIDITY = 9
 @export var MOVE_FLOAT = 0.2
 
-func die(killer):
-	print("Player dided to " + killer.name)
+func die_to(killer):
+	print("Player died to " + killer.name)
 	died.emit(killer)
 
 func _physics_process(delta: float) -> void:
@@ -25,10 +25,18 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, deceleration)
 
 	move_and_slide()
-
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack"):
+		$ClapAttack.attack()
+	
 func _on_clap_attack_hit(body) -> void:
 	if "HEALTH" in body and body.has_method("die"):
 		body.HEALTH -= 1
-		if body.HEALTH <= 0:
+		var killed = body.HEALTH <= 0
+		
+		DamageNumbers.display_number(1, body.position)
+		
+		if killed:
 			body.die()
 		
