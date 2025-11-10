@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://blppn7t57n4vd"]
+[gd_scene load_steps=6 format=3 uid="uid://blppn7t57n4vd"]
 
-[ext_resource type="Script" uid="uid://b61tjj5wubbgo" path="res://character_body_2d.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://b61tjj5wubbgo" path="res://scenes/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://cmyyciyif42af" path="res://icon.svg" id="2_i3pqv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
 radius = 64.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sweqy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.8, 0.8)
@@ -19,3 +21,11 @@ shape = SubResource("CircleShape2D_hqtel")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_sweqy")
 texture = ExtResource("2_i3pqv")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_g2els")
+debug_color = Color(0.10258619, 0.6323629, 0.41770718, 0.41960785)

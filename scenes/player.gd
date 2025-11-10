@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var SPEED = 500.0
+@export var HEALTH = 100
 
 @export var MOVE_RIGIDITY = 9
 @export var MOVE_FLOAT = 0.2
