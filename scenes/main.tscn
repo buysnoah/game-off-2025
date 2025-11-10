@@ -16,32 +16,7 @@ drag_bottom_margin = 0.25
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_0wfyh")]
-position = Vector2(-367.00003, 211)
-scale = Vector2(0.7, 0.7)
-TARGET = NodePath("../Player")
-
 [node name="Enemy2" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_0wfyh")]
 position = Vector2(-151.00005, 254)
-scale = Vector2(0.7, 0.7)
-TARGET = NodePath("../Player")
-
-[node name="Enemy3" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_0wfyh")]
-position = Vector2(-469.00003, 239)
-scale = Vector2(0.7, 0.7)
-TARGET = NodePath("../Player")
-
-[node name="Enemy4" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_0wfyh")]
-position = Vector2(-304.00003, 112.00001)
-scale = Vector2(0.7, 0.7)
-TARGET = NodePath("../Player")
-
-[node name="Enemy5" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_0wfyh")]
-position = Vector2(-378.00003, 116.00001)
-scale = Vector2(0.7, 0.7)
-TARGET = NodePath("../Player")
-
-[node name="Enemy6" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_0wfyh")]
-position = Vector2(-274.00003, 206)
 scale = Vector2(0.7, 0.7)
 TARGET = NodePath("../Player")

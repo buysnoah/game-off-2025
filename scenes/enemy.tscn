@@ -24,8 +24,12 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("1_7k104")
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_md0e3")
 debug_color = Color(0.9970053, 0, 0.1846224, 0.41960785)
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
