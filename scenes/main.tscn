@@ -4,9 +4,11 @@
 [ext_resource type="Script" uid="uid://ddvenhbhco2fi" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://djpoox2uewv4j" path="res://scenes/enemy.tscn" id="2_0wfyh"]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("camera")]
+[node name="Main" type="Node" node_paths=PackedStringArray("camera", "player")]
 script = ExtResource("1_sugp2")
 camera = NodePath("Camera2D")
+enemy = ExtResource("2_0wfyh")
+player = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 
