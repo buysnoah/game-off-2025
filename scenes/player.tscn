@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cmyyciyif42af" path="res://icon.svg" id="2_i3pqv"]
 [ext_resource type="PackedScene" uid="uid://c1lc1rf4v3yn6" path="res://scenes/clap_attack.tscn" id="3_qhqgy"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhqgy"]
 radius = 64.0
+height = 256.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sweqy"]
 
@@ -13,15 +14,23 @@ radius = 64.0
 scale = Vector2(0.8, 0.8)
 motion_mode = 1
 script = ExtResource("1_onrkg")
+SPEED = 800.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_hqtel")
+position = Vector2(64, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_qhqgy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_sweqy")
+position = Vector2(64, 0)
+scale = Vector2(2, 1)
 texture = ExtResource("2_i3pqv")
 
 [node name="ClapAttack" parent="." instance=ExtResource("3_qhqgy")]
+position = Vector2(64, 0)
 scale = Vector2(1.2, 1.2)
 
-[connection signal="hit" from="ClapAttack" to="." method="_on_clap_attack_hit"]
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.16
+one_shot = true

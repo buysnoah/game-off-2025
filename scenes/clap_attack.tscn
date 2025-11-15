@@ -26,10 +26,11 @@ script = ExtResource("1_3v0jj")
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_3v0jj")
-debug_color = Color(0.6755801, 0.49191332, 0.3420816, 0.41960785)
+debug_color = Color(0.6745098, 0.49019608, 0.34117648, 0.22745098)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

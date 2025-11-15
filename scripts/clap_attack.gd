@@ -1,8 +1,10 @@
 extends Node2D
 
-signal hit(body: PhysicsBody2D)
+#signal hit(body: PhysicsBody2D)
 
 @export var CLAP_SPEED: float = 1
+@export var DAMAGE: float = 1
+@export var FORCE: float = 600
 
 var is_attacking = false
 
@@ -14,7 +16,11 @@ func attack():
 	$Sprite2D.visible = true
 	
 	for body in $Area2D.get_overlapping_bodies():
-		hit.emit(body)
+		if body.has_method("take_damage"):
+			body.take_damage(DAMAGE)
+			DamageNumbers.display_number(DAMAGE, body.position)
+		
+			body.velocity += global_position.direction_to(body.global_position) * FORCE
 	
 	await get_tree().create_timer(0.2).timeout
 	$Sprite2D.visible = false

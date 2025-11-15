@@ -6,26 +6,31 @@
 
 [node name="Main" type="Node" node_paths=PackedStringArray("camera", "player")]
 script = ExtResource("1_sugp2")
-camera = NodePath("Camera2D")
+camera = NodePath("Player/Camera2D")
 enemy = ExtResource("2_0wfyh")
 player = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(-11.999999, 6.9999995)
+SPEED = 500.0
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(0.7999999, 0.7999999)
+[node name="Camera2D" type="Camera2D" parent="Player"]
+scale = Vector2(1.2499999, 1.2499999)
+zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_top_margin = 0.25
-drag_bottom_margin = 0.25
+drag_left_margin = 0.3
+drag_right_margin = 0.3
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("2_0wfyh")]
 position = Vector2(-342, 100)
 TARGET = NodePath("../Player")
-SPEED = 300.0
-MOVEMENT_FLOAT = 1
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]

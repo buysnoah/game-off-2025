@@ -5,49 +5,52 @@ extends CharacterBody2D
 @export var MIN_DISTANCE = 100
 
 @export var ATTACK_TIME: float = 1
+@export var DAMAGE: float = 1
 
-@export var SPEED = 500.0
+@export var SPEED = 300.0
 @export var HEALTH = 3
 
-@export var MOVEMENT_RIGIDITY = 0.9
-@export var MOVEMENT_FLOAT = 2
+@export var MOVEMENT_RIGIDITY: float = 0.9
 
 func die():
-	print("Wahahhhhhh! I died.")
+	DAMAGE = 0
+	SPEED = 0
+	$AnimationPlayer.play("die")
+	await $AnimationPlayer.animation_finished
 	queue_free()
+
+func take_damage(damage):
+	HEALTH = max(0, HEALTH - damage)
+	if HEALTH == 0:
+		die()
 
 func _ready() -> void:
 	$AttackTimer.wait_time = ATTACK_TIME
 
 func _physics_process(delta: float) -> void:
-	var direction
+	var old_direction = velocity.normalized()
+	var direction = old_direction 
 	
 	if TARGET:
-		direction = TARGET.position - position
-	else:
-		direction = velocity
+		direction = position.direction_to(TARGET.position) 
+		direction = old_direction.lerp(direction, MOVEMENT_RIGIDITY)
 	
-	var desiredVelocity = direction.normalized() * SPEED
+	var desired_velocity = direction.normalized() * SPEED
 	
-	if direction.length() > MIN_DISTANCE:
-		var weight = delta * MOVEMENT_RIGIDITY
-		velocity = velocity.lerp(desiredVelocity, weight)
-	else:
-		var deceleration = SPEED * delta * ( 1 / max(MOVEMENT_FLOAT, 0.01) )
-		velocity = velocity.move_toward(Vector2.ZERO, deceleration)
+	velocity = velocity.lerp(desired_velocity, delta)
 
 	move_and_slide()
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if "HEALTH" in body and body.has_method("die_to"):
+	if body.has_method("take_damage"):
 		while body in $Hurtbox.get_overlapping_bodies():
-			body.HEALTH -= 1
-			var killed = body.HEALTH <= 0
+			var damage = DAMAGE
 			
-			DamageNumbers.display_number(1, body.position)
+			var info = body.take_damage(damage, self)
+			DamageNumbers.display_number(info.damage_taken, body.position, info.is_killing_blow)
 			
-			if killed:
-				body.die_to(self)
-			
+			if info.is_killing_blow:
+				$Sprite2D.modulate = Color(0.0, 0.62, 0.0, 1.0)
+				
 			$AttackTimer.start()
 			await $AttackTimer.timeout
